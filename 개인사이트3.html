@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인사이트3</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        #wrap {width: 500vw; transform: scale(0.2); float: left; position: absolute; left: 0; top: 0; transform-origin: left top; transition: 1s}
+        #wrap #wrap_left {width: 50%; float: left; background: #222; /*display: flex; justify-content: center;*/transition: 1s; animation: zizin 0.3s;animation-iteration-count: 5;}
+        /*@keyframes zizin {
+            0% {padding-top: 0}
+            33% {padding-top: 50px}
+            66% {padding-top: 0}
+            100% {padding-top: 50px}
+        }*/
+
+        #wrap #wrap_left .box {margin-left: 30%; }
+        #wrap #wrap_left section {width: 100vw; height: 100vh; background: #555; font-size: 200px; position: relative; animation: section forwards ease-in; top:800px; transition: 1s}
+        #wrap #wrap_left section:nth-child(1) {background: #a1a9f0; transform: skewY(-12deg); animation-duration:.5s}
+        #wrap #wrap_left section:nth-child(2) {background: red; transform: skewY(-12deg); animation-duration:.7s}
+        #wrap #wrap_left section:nth-child(3) {background: #ccc; transform: skewY(-12deg); animation-duration:.9s}
+        #wrap #wrap_left section:nth-child(4) {background: #999; transform: skewY(-12deg); animation-duration:1.1s}
+        #wrap #wrap_left section:nth-child(5) {background: #777; transform: skewY(-12deg); animation-duration:1.3s;}
+
+        @keyframes section {
+            0% {top:1000px; transform: skewY(-12deg)}
+            70% {top:200px; transform: skewY(-12deg)}
+            100% {top:0px; transform: skewY(0deg)}
+        }
+
+        #wrap #wrap_right {width: 50%; height: 500vh; float: left; background: #222; font-size: 100px;  display: flex; justify-content: center;}
+
+        #wrap #wrap_left .box {width: 50%; position: relative; transition: 1s}
+        #wrap #wrap_right .box {width: 50%; background: crimson;}
+
+        #wrap #wrap_left .box .all {width: 50px; height: 50px; border-radius: 50%; background: #fff; position: absolute; left: 100px; top: 100px; z-index: 3}
+        
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="wrap_left">
+            <div class="box">
+                <div class="all">
+                    <span></span>
+                </div>
+                <div class="all2">
+                    <span></span>
+                </div>
+
+                <div class="section_box">
+                    <section id="section1">1</section>
+                    <section id="section2">2</section>
+                    <section id="section3">3</section>
+                    <section id="section4">4</section>
+                    <section id="section5">5</section>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrap_right">
+            <div class="box">
+                <img src="son.gif" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script src="script/jquery-3.6.0.min.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
+    <script src="script/action.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#wrap_left section').click(function(){
+                var offsetTop = Math.ceil($(this).offset().top)
+                console.log(offsetTop)
+                console.log($(window).scrollTop())
+                var wrapWidth = $('#wrap_left').width();
+
+                $('#wrap').css({width:'200vw', transform:'scale(1)'})
+                // $('#wrap #wrap_left').css({width:'50%'})
+                $('#wrap #wrap_left .box').css({marginLeft:'0%'});
+                // $('#wrap #wrap_right').css({width:'50%'}).hide()
+
+                if(wrapWidth > 1920){
+                    $('html, body').animate({scrollTop:offsetTop*5},1000);
+                } else {
+                    $('html, body').animate({scrollTop:offsetTop},1000);
+                }
+
+            })
+
+            // $('section').mousemove(function(){
+            //     console.log($(this).offset().top)
+            // })
+
+            $(window).scroll(function(){
+                var scrT = $(this).scrollTop();
+                if(scrT){
+                    $('.all').stop().animate({top:scrT+200})
+                }
+            })
+
+            $('.all').click(function(){
+                $('#wrap').css({width:'500vw', transform:'scale(0.2)'})
+                $('#wrap #wrap_left').css({width:'50%'});
+                $('#wrap #wrap_left .box').css({marginLeft:'30%'});
+                $('#wrap #wrap_right').css({width:'50%'}).show()
+            })
+            
+        })
+    </script>
+</body>
+</html>
